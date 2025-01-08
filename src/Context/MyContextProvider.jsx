@@ -6,7 +6,7 @@ import axios from 'axios';
 
 const MyContextProvider = ({children}) => {
 
-  const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:3034';
+  const apiUrl = process.env.REACT_APP_API_URL ;
        //for api calling start
 
  const[apiloader,setApiloader]=useState(true)
@@ -583,139 +583,139 @@ const [order, setOrder] = useState(() => {
 
 
 
-const handlepay = async () => {
-  try {
-    const { data } = await axios.post(
-      `${apiUrl}/add-to-order`,
-      { orderDate: new Date() },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
-        }
-      }
-    );
+// const handlepay = async () => {
+//   try {
+//     const { data } = await axios.post(
+//       `${apiUrl}/add-to-order`,
+//       { orderDate: new Date() },
+//       {
+//         headers: {
+//           'Content-Type': 'application/json',
+//           'Authorization': `Bearer ${token}`,
+//         }
+//       }
+//     );
 
-    if (data.success) {
-      setMessage(data.message);
-      sessionStorage.setItem('cart', JSON.stringify(data.cartInfo));
-      sessionStorage.setItem('order', JSON.stringify(data.orderInfo));
-      setCart(data.cartInfo);
-      setOrder(data.orderInfo);
-      setOpenalert(true);
-    } else {
-      setMessage(data.error);
-      setOpenalert(true);
-    }
-  } catch (error) {
-    console.error('Error during order submission:', error.response?.data?.error || error.message);
-  } finally {
-    setLoadingin(false);
-  }
-};
+//     if (data.success) {
+//       setMessage(data.message);
+//       sessionStorage.setItem('cart', JSON.stringify(data.cartInfo));
+//       sessionStorage.setItem('order', JSON.stringify(data.orderInfo));
+//       setCart(data.cartInfo);
+//       setOrder(data.orderInfo);
+//       setOpenalert(true);
+//     } else {
+//       setMessage(data.error);
+//       setOpenalert(true);
+//     }
+//   } catch (error) {
+//     console.error('Error during order submission:', error.response?.data?.error || error.message);
+//   } finally {
+//     setLoadingin(false);
+//   }
+// };
 
     
-    const handleupi = async (e) => {
-      setLoadingin(true);
+    // const handleupi = async (e) => {
+    //   setLoadingin(true);
     
-      try {
-        // Use axios to make the POST request
-        const {data} = await axios.post(`${apiUrl}/razorpay`, {
-          amount: TotalValue
-        }, {
-          headers: {
-            'Content-Type': 'application/json',
-          }
-        });
+    //   try {
+    //     // Use axios to make the POST request
+    //     const {data} = await axios.post(`${apiUrl}/razorpay`, {
+    //       amount: TotalValue
+    //     }, {
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //       }
+    //     });
     
       
     
-        if (data.success !== true) {
-          setOpenalert(true);
-          setMessage(data.error);
-        } else {
-          const options = {
-            key: process.env.REACT_APP_RAZORPAY_KEY,
-            amount: data.amount,
-            currency: data.currency,
-            image: "https://i.ibb.co/wdj924Q/image-2024-08-18-074932280.png",
-            name: "ZEPHYR",
-            description: "Test Transaction",
-            order_id: data.id,
-            config: {
-              display: {
-                blocks: {
-                  utib: { 
-                    name: "most recommended using",
-                    instruments: [
-                      {
-                        method: "card",
-                        types: ["debit", "credit"]
-                      },
-                      {
-                        method: "upi",
+    //     if (data.success !== true) {
+    //       setOpenalert(true);
+    //       setMessage(data.error);
+    //     } else {
+    //       const options = {
+    //         key: process.env.REACT_APP_RAZORPAY_KEY,
+    //         amount: data.amount,
+    //         currency: data.currency,
+    //         image: "https://i.ibb.co/wdj924Q/image-2024-08-18-074932280.png",
+    //         name: "ZEPHYR",
+    //         description: "Test Transaction",
+    //         order_id: data.id,
+    //         config: {
+    //           display: {
+    //             blocks: {
+    //               utib: { 
+    //                 name: "most recommended using",
+    //                 instruments: [
+    //                   {
+    //                     method: "card",
+    //                     types: ["debit", "credit"]
+    //                   },
+    //                   {
+    //                     method: "upi",
                         
-                      }
-                    ]
-                  },
+    //                   }
+    //                 ]
+    //               },
                 
-                },
-                hide: [
-                  {
-                    method: "upi",
-                    flows: ["qr"]
-                  },
+    //             },
+    //             hide: [
+    //               {
+    //                 method: "upi",
+    //                 flows: ["qr"]
+    //               },
 
-                  {
-                    method: "wallet",
+    //               {
+    //                 method: "wallet",
                   
-                  },
+    //               },
 
-                  {
-                    method: "paylater",
+    //               {
+    //                 method: "paylater",
                   
-                  }
-                ],
-                sequence: ["block.utib", "block.other"],
-                preferences: {
-                  show_default_blocks: true
-                }
-              }
-            },
-            handler:async (response) => {
-              await handlepay(); 
-            Navigate('/confirm');
-            },
-            // modal: {
-            //   ondismiss: function () {
-            //     if (window.confirm("Are you sure you want to close the form?")) {
-            //       console.log("Checkout form closed by the user");
-            //     } else {
-            //       console.log("Complete the Payment");
-            //     }
-            //   }
-            // },
-            theme: {
-              color: "#F4ACBD",
-              hide_topbar: false,
-              shape: "rectangular",
-              header: {
-                color: "#fff",
-                text: "Payment"
-              }
-            }
-          };
+    //               }
+    //             ],
+    //             sequence: ["block.utib", "block.other"],
+    //             preferences: {
+    //               show_default_blocks: true
+    //             }
+    //           }
+    //         },
+    //         handler:async (response) => {
+    //           await handlepay(); 
+    //         Navigate('/confirm');
+    //         },
+    //         // modal: {
+    //         //   ondismiss: function () {
+    //         //     if (window.confirm("Are you sure you want to close the form?")) {
+    //         //       console.log("Checkout form closed by the user");
+    //         //     } else {
+    //         //       console.log("Complete the Payment");
+    //         //     }
+    //         //   }
+    //         // },
+    //         theme: {
+    //           color: "#F4ACBD",
+    //           hide_topbar: false,
+    //           shape: "rectangular",
+    //           header: {
+    //             color: "#fff",
+    //             text: "Payment"
+    //           }
+    //         }
+    //       };
     
-          const rzp1 = new window.Razorpay(options);
-          rzp1.open();
-        }
-      } catch (error) {
-        alert(error.message);
-        console.error("Error during payment process:", error);
-      } finally {
-        setLoadingin(false);
-      }
-    };
+    //       const rzp1 = new window.Razorpay(options);
+    //       rzp1.open();
+    //     }
+    //   } catch (error) {
+    //     alert(error.message);
+    //     console.error("Error during payment process:", error);
+    //   } finally {
+    //     setLoadingin(false);
+    //   }
+    // };
     
 
 
@@ -723,7 +723,7 @@ const handlepay = async () => {
   return (
     <div>
 
-    <MyContext.Provider value={{handleupi,order,apiloader,apiUrl,setOrder,handlewish,TotalValue,shipping,setShipping,removeProductFromWish,isProductInWish,isProductInCart,wish,setWish,handleIncreaseQuantity,handleDecreaseQuantity,removeProductFromCart,edit, setEdit,userdata,setUserdata,cart,handleLogin, setCart,location,handletime,shareToWhatsApp,shareToLinkedIn,shareToTwitter ,big,setBig,handleMouseMove,show, setShow,cursorPosition, setCursorPosition,size,showSize,setSize,handleCart,issize,setIssize,handleSortChange,sortOrder,setSortOrder,handleimg,api,token,opensearch,setOpensearch,setToken,openalert,setOpenalert,Navigate,openregister ,handleLoginClose,openmodal,setOpenmodal,handleLoginOpen,showSignin,setShowSignin,
+    <MyContext.Provider value={{order,apiloader,apiUrl,setOrder,handlewish,TotalValue,shipping,setShipping,removeProductFromWish,isProductInWish,isProductInCart,wish,setWish,handleIncreaseQuantity,handleDecreaseQuantity,removeProductFromCart,edit, setEdit,userdata,setUserdata,cart,handleLogin, setCart,location,handletime,shareToWhatsApp,shareToLinkedIn,shareToTwitter ,big,setBig,handleMouseMove,show, setShow,cursorPosition, setCursorPosition,size,showSize,setSize,handleCart,issize,setIssize,handleSortChange,sortOrder,setSortOrder,handleimg,api,token,opensearch,setOpensearch,setToken,openalert,setOpenalert,Navigate,openregister ,handleLoginClose,openmodal,setOpenmodal,handleLoginOpen,showSignin,setShowSignin,
             message,setMessage,handleLogout,
              input,setInput,loadingin,setLoadingin
             ,details,setDetails,
