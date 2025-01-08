@@ -30,13 +30,13 @@ useEffect(() => {
 
 
 
-  // location common
-const location = useLocation()  
-// for location end
+    // location common
+  const location = useLocation()  
+  // for location end
 
-// for navigation start
-const Navigate = useNavigate()
-// for navigation end
+  // for navigation start
+  const Navigate = useNavigate()
+  // for navigation end
 
 // for serch open search bar start
 const[opensearch,setOpensearch] =useState(false)
