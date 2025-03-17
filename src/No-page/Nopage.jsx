@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import './Nopage.scss'
 import img from '..//Images/error.png'
-import MyContext from '../Context/MyContext'
+import MyContext from '../Context/MyContext';
 
 
 const Nopage = () => {

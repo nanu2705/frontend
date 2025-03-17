@@ -58,22 +58,7 @@ const App = () => {
           <Route path='/shipping-details' element={<Checkout show={false}/>}/>
           <Route path='/payment' element={<Payment/>}/>
           <Route path='/confirm' element={<Confirm/>}/>
-          <Route path='/order' element={<Order/>}/>
-      
-           
-        
-          
-          
-
-           
-           
-           
-           
-         
-        
-         
-          
-            
+          <Route path='/order' element={<Order/>}/> 
 
         </Routes>
         <Footer />
